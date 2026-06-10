@@ -4,9 +4,10 @@ import LandingPage from './pages/LandingPage';
 import LoginPage from './pages/LoginPage';
 import SignupPage from './pages/SignupPage';
 import Dashboard from './pages/candidate/Dashboard';
+import CompanyDashboard from './pages/company/CompanyDashboard';
 
 function App() {
-  const [currentPage, setCurrentPage] = useState('dashboard');
+  const [currentPage, setCurrentPage] = useState('company');
 
   return (
     <div>
@@ -14,6 +15,7 @@ function App() {
       {currentPage === 'login' && <LoginPage />}
       {currentPage === 'signup' && <SignupPage />}
       {currentPage === 'dashboard' && <><Navbar /><Dashboard /></>}
+      {currentPage === 'company' && <><Navbar /><CompanyDashboard /></>}
     </div>
   );
 }
