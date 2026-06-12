@@ -833,7 +833,7 @@ export default function CompanyDashboard() {
           <div style={{
             background: "white", borderRadius: "20px",
             padding: "28px", width: "100%", maxWidth: "560px",
-            maxHeight: "80vh", overflowY: "auto"
+            maxHeight: "85vh", overflowY: "auto"
           }}>
             <div style={{
               display: "flex", justifyContent: "space-between",
@@ -841,7 +841,7 @@ export default function CompanyDashboard() {
             }}>
               <div style={{
                 fontSize: "18px", fontWeight: "600", color: "#0F172A"
-              }}>Post a New Job</div>
+              }}>Post a New Opportunity</div>
               <button onClick={() => setShowPostJob(false)} style={{
                 background: "#F8FAFC", border: "1px solid #E2E8F0",
                 borderRadius: "8px", width: "32px", height: "32px",
@@ -849,32 +849,32 @@ export default function CompanyDashboard() {
               }}>✕</button>
             </div>
 
-            {[
-              { label: "Job Title", placeholder: "e.g. Python Developer" },
-              { label: "Required Skills (comma separated)", placeholder: "Python, Django, REST APIs" },
-              { label: "Number of Vacancies", placeholder: "e.g. 3", type: "number" },
-              { label: "Salary Range", placeholder: "e.g. ₹4–6 LPA" },
-              { label: "Application Deadline", placeholder: "", type: "date" },
-            ].map(field => (
-              <div key={field.label} style={{ marginBottom: "16px" }}>
-                <label style={{
-                  display: "block", fontSize: "13px",
-                  fontWeight: "500", color: "#374151", marginBottom: "6px"
-                }}>{field.label}</label>
-                <input
-                  type={field.type || "text"}
-                  placeholder={field.placeholder}
-                  style={{
-                    width: "100%", padding: "10px 14px",
-                    border: "1.5px solid #E2E8F0", borderRadius: "10px",
-                    fontSize: "14px", outline: "none", boxSizing: "border-box"
+            {/* Opportunity Type */}
+            <div style={{ marginBottom: "16px" }}>
+              <label style={{
+                display: "block", fontSize: "13px",
+                fontWeight: "500", color: "#374151", marginBottom: "6px"
+              }}>Opportunity Type</label>
+              <div style={{ display: "flex", gap: "8px" }}>
+                {["Full-time Job", "Internship", "Part-time"].map(type => (
+                  <button key={type} style={{
+                    padding: "8px 16px", border: "1.5px solid #E2E8F0",
+                    borderRadius: "8px", fontSize: "13px",
+                    cursor: "pointer", background: "white", color: "#64748B"
                   }}
-                  onFocus={e => e.target.style.borderColor = "#185FA5"}
-                  onBlur={e => e.target.style.borderColor = "#E2E8F0"}
-                />
+                  onMouseEnter={e => {
+                    e.currentTarget.style.borderColor = "#185FA5";
+                    e.currentTarget.style.color = "#185FA5";
+                  }}
+                  onMouseLeave={e => {
+                    e.currentTarget.style.borderColor = "#E2E8F0";
+                    e.currentTarget.style.color = "#64748B";
+                  }}>{type}</button>
+                ))}
               </div>
-            ))}
+            </div>
 
+            {/* Work Mode */}
             <div style={{ marginBottom: "16px" }}>
               <label style={{
                 display: "block", fontSize: "13px",
@@ -886,11 +886,177 @@ export default function CompanyDashboard() {
                     padding: "8px 16px", border: "1.5px solid #E2E8F0",
                     borderRadius: "8px", fontSize: "13px",
                     cursor: "pointer", background: "white", color: "#64748B"
+                  }}
+                  onMouseEnter={e => {
+                    e.currentTarget.style.borderColor = "#185FA5";
+                    e.currentTarget.style.color = "#185FA5";
+                  }}
+                  onMouseLeave={e => {
+                    e.currentTarget.style.borderColor = "#E2E8F0";
+                    e.currentTarget.style.color = "#64748B";
                   }}>{mode}</button>
                 ))}
               </div>
             </div>
 
+            {/* Job Title */}
+            <div style={{ marginBottom: "16px" }}>
+              <label style={{
+                display: "block", fontSize: "13px",
+                fontWeight: "500", color: "#374151", marginBottom: "6px"
+              }}>Job / Internship Title</label>
+              <input type="text"
+                placeholder="e.g. Python Developer / Marketing Intern"
+                style={{
+                  width: "100%", padding: "10px 14px",
+                  border: "1.5px solid #E2E8F0", borderRadius: "10px",
+                  fontSize: "14px", outline: "none", boxSizing: "border-box"
+                }}
+                onFocus={e => e.target.style.borderColor = "#185FA5"}
+                onBlur={e => e.target.style.borderColor = "#E2E8F0"}
+              />
+            </div>
+
+            {/* Required Skills */}
+            <div style={{ marginBottom: "16px" }}>
+              <label style={{
+                display: "block", fontSize: "13px",
+                fontWeight: "500", color: "#374151", marginBottom: "6px"
+              }}>Required Skills (comma separated)</label>
+              <input type="text" placeholder="Python, Django, REST APIs"
+                style={{
+                  width: "100%", padding: "10px 14px",
+                  border: "1.5px solid #E2E8F0", borderRadius: "10px",
+                  fontSize: "14px", outline: "none", boxSizing: "border-box"
+                }}
+                onFocus={e => e.target.style.borderColor = "#185FA5"}
+                onBlur={e => e.target.style.borderColor = "#E2E8F0"}
+              />
+            </div>
+
+            {/* Experience Required */}
+            <div style={{ marginBottom: "16px" }}>
+              <label style={{
+                display: "block", fontSize: "13px",
+                fontWeight: "500", color: "#374151", marginBottom: "6px"
+              }}>Experience Required</label>
+              <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
+                {["Fresher (0 yr)", "0–1 year", "1–2 years", "2+ years"].map(exp => (
+                  <button key={exp} style={{
+                    padding: "7px 14px", border: "1.5px solid #E2E8F0",
+                    borderRadius: "8px", fontSize: "12px",
+                    cursor: "pointer", background: "white", color: "#64748B"
+                  }}
+                  onMouseEnter={e => {
+                    e.currentTarget.style.borderColor = "#185FA5";
+                    e.currentTarget.style.color = "#185FA5";
+                  }}
+                  onMouseLeave={e => {
+                    e.currentTarget.style.borderColor = "#E2E8F0";
+                    e.currentTarget.style.color = "#64748B";
+                  }}>{exp}</button>
+                ))}
+              </div>
+            </div>
+
+            {/* Stipend / Salary */}
+            <div style={{ marginBottom: "16px" }}>
+              <label style={{
+                display: "block", fontSize: "13px",
+                fontWeight: "500", color: "#374151", marginBottom: "6px"
+              }}>Stipend / Salary</label>
+              <div style={{ display: "flex", gap: "8px", marginBottom: "8px" }}>
+                {["Paid", "Unpaid"].map(type => (
+                  <button key={type} style={{
+                    padding: "7px 20px", border: "1.5px solid #E2E8F0",
+                    borderRadius: "8px", fontSize: "13px",
+                    cursor: "pointer", background: "white", color: "#64748B"
+                  }}
+                  onMouseEnter={e => {
+                    e.currentTarget.style.borderColor = "#185FA5";
+                    e.currentTarget.style.color = "#185FA5";
+                  }}
+                  onMouseLeave={e => {
+                    e.currentTarget.style.borderColor = "#E2E8F0";
+                    e.currentTarget.style.color = "#64748B";
+                  }}>{type}</button>
+                ))}
+              </div>
+              <input type="text"
+                placeholder="e.g. ₹15,000/month or ₹4–6 LPA (leave blank if unpaid)"
+                style={{
+                  width: "100%", padding: "10px 14px",
+                  border: "1.5px solid #E2E8F0", borderRadius: "10px",
+                  fontSize: "14px", outline: "none", boxSizing: "border-box"
+                }}
+                onFocus={e => e.target.style.borderColor = "#185FA5"}
+                onBlur={e => e.target.style.borderColor = "#E2E8F0"}
+              />
+            </div>
+
+            {/* Duration */}
+            <div style={{ marginBottom: "16px" }}>
+              <label style={{
+                display: "block", fontSize: "13px",
+                fontWeight: "500", color: "#374151", marginBottom: "6px"
+              }}>Duration (for internships)</label>
+              <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
+                {["1 month", "2 months", "3 months", "6 months", "Not applicable"].map(d => (
+                  <button key={d} style={{
+                    padding: "7px 14px", border: "1.5px solid #E2E8F0",
+                    borderRadius: "8px", fontSize: "12px",
+                    cursor: "pointer", background: "white", color: "#64748B"
+                  }}
+                  onMouseEnter={e => {
+                    e.currentTarget.style.borderColor = "#185FA5";
+                    e.currentTarget.style.color = "#185FA5";
+                  }}
+                  onMouseLeave={e => {
+                    e.currentTarget.style.borderColor = "#E2E8F0";
+                    e.currentTarget.style.color = "#64748B";
+                  }}>{d}</button>
+                ))}
+              </div>
+            </div>
+
+            {/* Vacancies and Deadline */}
+            <div style={{
+              display: "grid", gridTemplateColumns: "1fr 1fr",
+              gap: "12px", marginBottom: "16px"
+            }}>
+              <div>
+                <label style={{
+                  display: "block", fontSize: "13px",
+                  fontWeight: "500", color: "#374151", marginBottom: "6px"
+                }}>Number of Vacancies</label>
+                <input type="number" placeholder="e.g. 3"
+                  style={{
+                    width: "100%", padding: "10px 14px",
+                    border: "1.5px solid #E2E8F0", borderRadius: "10px",
+                    fontSize: "14px", outline: "none", boxSizing: "border-box"
+                  }}
+                  onFocus={e => e.target.style.borderColor = "#185FA5"}
+                  onBlur={e => e.target.style.borderColor = "#E2E8F0"}
+                />
+              </div>
+              <div>
+                <label style={{
+                  display: "block", fontSize: "13px",
+                  fontWeight: "500", color: "#374151", marginBottom: "6px"
+                }}>Application Deadline</label>
+                <input type="date"
+                  style={{
+                    width: "100%", padding: "10px 14px",
+                    border: "1.5px solid #E2E8F0", borderRadius: "10px",
+                    fontSize: "14px", outline: "none", boxSizing: "border-box"
+                  }}
+                  onFocus={e => e.target.style.borderColor = "#185FA5"}
+                  onBlur={e => e.target.style.borderColor = "#E2E8F0"}
+                />
+              </div>
+            </div>
+
+            {/* Job Description */}
             <div style={{ marginBottom: "20px" }}>
               <label style={{
                 display: "block", fontSize: "13px",
@@ -911,28 +1077,25 @@ export default function CompanyDashboard() {
               />
             </div>
 
+            {/* Buttons */}
             <div style={{ display: "flex", gap: "10px" }}>
-              <button
-                onClick={() => setShowPostJob(false)}
-                style={{
-                  flex: 1, padding: "12px",
-                  background: "#F8FAFC", color: "#475569",
-                  border: "1px solid #E2E8F0", borderRadius: "10px",
-                  fontSize: "14px", fontWeight: "500", cursor: "pointer"
-                }}>Cancel</button>
-              <button
-                onClick={() => setShowPostJob(false)}
-                style={{
-                  flex: 2, padding: "12px",
-                  background: "#185FA5", color: "white",
-                  border: "none", borderRadius: "10px",
-                  fontSize: "14px", fontWeight: "600", cursor: "pointer",
-                  boxShadow: "0 4px 12px rgba(24,95,165,0.3)"
-                }}>Post Job</button>
+              <button onClick={() => setShowPostJob(false)} style={{
+                flex: 1, padding: "12px",
+                background: "#F8FAFC", color: "#475569",
+                border: "1px solid #E2E8F0", borderRadius: "10px",
+                fontSize: "14px", fontWeight: "500", cursor: "pointer"
+              }}>Cancel</button>
+              <button onClick={() => setShowPostJob(false)} style={{
+                flex: 2, padding: "12px",
+                background: "#185FA5", color: "white",
+                border: "none", borderRadius: "10px",
+                fontSize: "14px", fontWeight: "600", cursor: "pointer",
+                boxShadow: "0 4px 12px rgba(24,95,165,0.3)"
+              }}>Post Opportunity</button>
             </div>
           </div>
         </div>
       )}
     </div>
   );
-}
+};
