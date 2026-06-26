@@ -38,8 +38,8 @@ app.get('/', (req, res) => {
 
 // Routes will be added here
 app.use('/api/auth', require('./routes/auth'));
-// app.use('/api/jobs', require('./routes/jobs'));
-// app.use('/api/applications', require('./routes/applications'));
+app.use('/api/jobs', require('./routes/jobs'));
+app.use('/api/applications', require('./routes/applications'));
 
 // Error handler
 app.use((err, req, res, next) => {
