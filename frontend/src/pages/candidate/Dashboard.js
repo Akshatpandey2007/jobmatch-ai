@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { authAPI, jobsAPI, applicationsAPI } from '../../api';
 import {
   Bell, Search, Briefcase, TrendingUp, Award,
   FileText, MessageSquare, ChevronRight, MapPin,
@@ -7,18 +8,6 @@ import {
   AlertCircle, Building2, Upload, Play
 } from 'lucide-react';
 
-const candidate = {
-  name: "Akshat Pandey",
-  initials: "AP",
-  domain: "Backend Developer",
-  location: "Indore, MP",
-  profileStrength: 87,
-  matchedJobs: 14,
-  appliedJobs: 3,
-  certificates: 2,
-  skills: ["Python", "Django", "REST APIs", "SQL", "Git", "React"],
-  verified: true
-};
 
 const jobs = [
   {
@@ -123,6 +112,48 @@ function MatchBadge({ score }) {
 
 export default function Dashboard() {
   const [activeTab, setActiveTab] = useState("overview");
+  const [user, setUser] = useState(null);
+  const [realJobs, setRealJobs] = useState([]);
+  const [myApplications, setMyApplications] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    const userData = localStorage.getItem('user');
+
+    if (!token) {
+      window.location.href = '/login';
+      return;
+    }
+
+    if (userData) {
+      setUser(JSON.parse(userData));
+    }
+
+    // Load real jobs
+    jobsAPI.getAll().then(data => {
+      setRealJobs(data.jobs || []);
+    }).catch(err => console.log('Jobs error:', err));
+
+    // Load real applications
+    applicationsAPI.getMyApplications(token).then(data => {
+      setMyApplications(data.applications || []);
+    }).catch(err => console.log('Applications error:', err));
+
+    setLoading(false);
+  }, []);
+  const candidate = {
+  name: user?.fullName || "Your Name",
+  initials: user?.fullName ? user.fullName.split(' ').map(n => n[0]).join('').toUpperCase() : "??",
+  domain: "Backend Developer",
+  location: "Indore, MP",
+  profileStrength: 20,
+  matchedJobs: realJobs.length,
+  appliedJobs: myApplications.length,
+  certificates: 0,
+  skills: [],
+  verified: false
+};
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedMode, setSelectedMode] = useState("All");
   const [selectedType, setSelectedType] = useState("All");
@@ -388,7 +419,7 @@ export default function Dashboard() {
               }}>
                 <div>
                   <div style={{ fontSize: "20px", fontWeight: "700", marginBottom: "6px" }}>
-                    Good morning, Akshat! 👋
+                    Good morning, {candidate.name.split(' ')[0]}! 👋
                   </div>
                   <div style={{ fontSize: "14px", opacity: 0.85, marginBottom: "16px" }}>
                     You have 3 new job matches today. Your profile was viewed 5 times this week.
